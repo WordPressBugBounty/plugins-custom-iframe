@@ -4,6 +4,7 @@ namespace custif\widget;
 
 use custif\includes\embed_handlers\Embed_Converter;
 use custif\includes\embed_handlers\PDF_Handler;
+use custif\includes\Notice_Manager;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Background;
 use Elementor\Group_Control_Border;
@@ -24,6 +25,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 class Custom_IFrame_Widget extends Widget_Base {
+
+	/**
+	 * Notices manager instance.
+	 *
+	 * @var Notice_Manager
+	 */
+	private $notices_manager;
 
 	/**
 	 * Embed converter instance.
@@ -52,9 +60,20 @@ class Custom_IFrame_Widget extends Widget_Base {
 	public function __construct( $data = array(), $args = null ) {
 		parent::__construct( $data, $args );
 
-		// Initialize the embed converter and PDF handler.
+		// Initialize the embed converter , PDF handler and Notice class.
 		$this->embed_converter = new Embed_Converter();
 		$this->pdf_handler     = new PDF_Handler();
+		$this->notices_manager = new Notice_Manager();
+	}
+
+	/**
+	 * Get pro plugin notice HTML.
+	 *
+	 * @return string Pro plugin notice HTML.
+	 * @since 1.0.13
+	 */
+	protected function pro_plugin_notice() {
+		return $this->notices_manager->pro_plugin_notice();
 	}
 
 	/**
@@ -143,8 +162,10 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'options' => array(
 					'default' => __( 'Default', 'custom-iframe' ),
 					'Pdf'     => __( 'Pdf', 'custom-iframe' ),
+					'X'       => __( 'X ( Pro )', 'custom-iframe' ),
+					'Youtube' => __( 'YouTube ( Pro )', 'custom-iframe' ),
+					'Vimeo'   => __( 'Vimeo ( Pro )', 'custom-iframe' ),
 				),
-
 			)
 		);
 
@@ -160,7 +181,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'label_block'   => true,
 				'show_external' => false,
 				'condition'     => array(
-					'source' => 'default',
+					'source!' => 'Pdf',
 				),
 			)
 		);
@@ -267,6 +288,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 					'unit' => 'px',
 					'size' => 500,
 				),
+				'description' => __( 'height is not supported when using the X Embed Post.', 'custom-iframe' ),
 				'selectors'  => array(
 					'{{WRAPPER}} iframe' => 'height: {{SIZE}}{{UNIT}};',
 				),
@@ -286,6 +308,8 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'label_off'    => __( 'No', 'custom-iframe' ),
 				'return_value' => 'yes',
 				'default'      => 'no',
+				'separator'  => 'before',
+				'description' => __( 'Auto height only works when cross domain with "allow origin all in header".', 'custom-iframe' ),
 			)
 		);
 
@@ -296,8 +320,9 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array(
-					'source' => 'default',
+					'source!' => 'Pdf',
 				),
+				'separator'  => 'before',
 			)
 		);
 
@@ -311,7 +336,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'default'     => 0,
 				'description' => __( 'Set 0 to disable auto-refresh', 'custom-iframe' ),
 				'condition'   => array(
-					'source' => 'default',
+					'source!' => 'Pdf',
 				),
 			)
 		);
@@ -336,8 +361,20 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'return_value' => 'yes',
 				'default'      => 'no',
 				'separator'    => 'before',
-				'condition'    => array(
-					'source' => 'default',
+				'conditions' => array(
+					'relation' => 'or',
+					'terms' => array(
+						array(
+							'name' => 'pdf_type',
+							'operator' => '!==',
+							'value' => 'file',
+						),
+						array(
+							'name' => 'source',
+							'operator' => '!==',
+							'value' => 'Pdf',
+						),
+					),
 				),
 			)
 		);
@@ -367,6 +404,276 @@ class Custom_IFrame_Widget extends Widget_Base {
 					'enable_lazy_load' => 'yes',
 				),
 				'separator' => 'before',
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'x_basic_options',
+			array(
+				'label'     => __( 'X Basic Options', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'X',
+				),
+			)
+		);
+
+		$this->add_control(
+			'x_basic_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'X',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'x_advanced_options',
+			array(
+				'label'     => __( 'X Basic Options', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'X',
+				),
+			)
+		);
+
+		$this->add_control(
+			'x_advance_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'X',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'basic_options',
+			array(
+				'label'     => __( 'Basic Options', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->add_control(
+			'youtube_basic_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'youtube_playback_section',
+			array(
+				'label'     => __( 'YouTube Playback', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->add_control(
+			'youtube_playback_section_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'youtube_appearance_section',
+			array(
+				'label'     => __( 'YouTube Appearance', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->add_control(
+			'youtube_appearance_section_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'youtube_advanced_section',
+			array(
+				'label'     => __( 'YouTube Advanced', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->add_control(
+			'youtube_advanced_section_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'youtube_captions_section',
+			array(
+				'label'     => __( 'YouTube Captions', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->add_control(
+			'youtube_captions_section_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Youtube',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'vimeo_basic_options',
+			array(
+				'label'     => __( 'Vimeo Basic Options', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
+			)
+		);
+
+		$this->add_control(
+			'vimeo_basic_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'vimeo_playback_options',
+			array(
+				'label'     => __( 'Vimeo Playback', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
+			)
+		);
+
+		$this->add_control(
+			'vimeo_playback_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'vimeo_appearance_options',
+			array(
+				'label'     => __( 'Vimeo Appearance', 'custom-iframe' ),
+				'tab'       => Controls_Manager::TAB_CONTENT,
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
+			)
+		);
+
+		$this->add_control(
+			'vimeo_appearance_options_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Vimeo',
+				),
 			)
 		);
 
@@ -725,8 +1032,54 @@ class Custom_IFrame_Widget extends Widget_Base {
 					'Enter an ID for custom CSS or JavaScript. Leave empty for an auto-generated ID.',
 					'custom-iframe'
 				),
+				'separator'   => 'after',
 				'label_block' => true,
-				'separator'   => 'before',
+			)
+		);
+
+		$this->add_control(
+			'sandbox',
+			array(
+				'label'   => __( 'Enable Sandbox', 'custom-iframe' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'no',
+			)
+		);
+
+		$this->add_control(
+			'sandbox_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'sandbox' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'custif_custom_iframe_attributes',
+			array(
+				'label'   => __( 'Attributes', 'custom-iframe' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'no',
+			)
+		);
+
+		$this->add_control(
+			'custif_custom_iframe_attributes_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'custif_custom_iframe_attributes' => 'yes',
+				),
 			)
 		);
 
@@ -750,30 +1103,6 @@ class Custom_IFrame_Widget extends Widget_Base {
 					'{{WRAPPER}} iframe' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'separator'  => 'before',
-			)
-		);
-
-		$this->add_control(
-			'align',
-			array(
-				'label'        => __( 'Alignment', 'custom-iframe' ),
-				'type'         => Controls_Manager::CHOOSE,
-				'options'      => array(
-					'left'   => array(
-						'title' => __( 'Left', 'custom-iframe' ),
-						'icon'  => 'eicon-text-align-left',
-					),
-					'center' => array(
-						'title' => __( 'Center', 'custom-iframe' ),
-						'icon'  => 'eicon-text-align-center',
-					),
-					'right'  => array(
-						'title' => __( 'Right', 'custom-iframe' ),
-						'icon'  => 'eicon-text-align-right',
-					),
-				),
-				'prefix_class' => 'custif-iframe-align-',
-				'separator'    => 'before',
 			)
 		);
 
@@ -805,6 +1134,30 @@ class Custom_IFrame_Widget extends Widget_Base {
 					'{{WRAPPER}} .custif-iframe-wrapper' => 'max-width: {{SIZE}}{{UNIT}};',
 				),
 				'separator'  => 'before',
+			)
+		);
+
+		$this->add_control(
+			'align',
+			array(
+				'label'        => __( 'Alignment', 'custom-iframe' ),
+				'type'         => Controls_Manager::CHOOSE,
+				'options'      => array(
+					'left'   => array(
+						'title' => __( 'Left', 'custom-iframe' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center' => array(
+						'title' => __( 'Center', 'custom-iframe' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'  => array(
+						'title' => __( 'Right', 'custom-iframe' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'prefix_class' => 'custif-iframe-align-',
+				'separator'    => 'before',
 			)
 		);
 
@@ -840,7 +1193,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 			Group_Control_Border::get_type(),
 			array(
 				'name'     => 'iframe_border',
-				'selector' => '{{WRAPPER}} iframe',
+				'selector' => '{{WRAPPER}} iframe,{{WRAPPER}} .custif-iframe-wrapper',
 			)
 		);
 
@@ -868,7 +1221,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 			Group_Control_Box_Shadow::get_type(),
 			array(
 				'name'     => 'iframe_box_shadow',
-				'selector' => '{{WRAPPER}} iframe',
+				'selector' => '{{WRAPPER}} .custif-iframe-wrapper',
 			)
 		);
 		$this->end_controls_section();
@@ -928,7 +1281,7 @@ class Custom_IFrame_Widget extends Widget_Base {
 
 		?>
 		<div class="custif-iframe-wrapper" id="<?php echo esc_attr( $iframe_id ); ?>">
-			<?php if ( ( ! empty( $source ) && 'default' === $source ) || ( 'url' === $pdf_type && ! empty( $settings['pdf_file_link']['url'] ) ) ) : ?>
+			<?php if ( ( ! empty( $source ) && 'Pdf' !== $source ) || ( 'url' === $pdf_type && ! empty( $settings['pdf_file_link']['url'] ) ) ) : ?>
 				<?php if ( ! empty( $url ) ) : ?>
 					<?php
 					if ( filter_var( $url, FILTER_VALIDATE_URL ) ) {

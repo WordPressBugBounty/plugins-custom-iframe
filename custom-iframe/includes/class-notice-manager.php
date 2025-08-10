@@ -125,7 +125,7 @@ class Notice_Manager {
 		<p>' . esc_html__( 'Edit a page with Elementor, search for "Custom iFrame" in the widget panel, and drag it into your layout.', 'custom-iframe' ) . '</p>
 		<p>
 			<a href="https://youtu.be/EB6MgWB6zLA?si=IqG88NkkM_DC84Ds" target="_blank">🎥 Video Tutorial</a> &nbsp;|&nbsp; 
-			<a href="https://coderzstudio.com/plugins/custom-iframe/demo/?utm_source=wordpress&utm_medium=dashboard&utm_campaign=custom_iframe&utm_id=wp_03" target="_blank">🔗 Live Demo</a>
+			<a href="https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo" target="_blank">🔗 Live Demo</a>
 		</p>
 	</div>';
 	}
@@ -211,6 +211,93 @@ class Notice_Manager {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Get pro plugin notice HTML.
+	 *
+	 * @return string Pro plugin notice HTML.
+	 * @since 1.0.13
+	 */
+	public function pro_plugin_notice() {
+		return sprintf(
+			'<div class="custif-pro-notice">
+			<div class="notice-content">
+				<span class="notice-text">%s</span>
+			</div>
+			<div class="notice-actions">
+				<a href="%s" target="_blank" class="upgrade-link">%s</a>
+			</div>
+		</div>
+		<style>
+			.custif-pro-notice {
+				background: #f8fafc;
+				border: 1px solid #e2e8f0;
+				border-radius: 6px;
+				padding: 10px 14px;
+				margin: 8px 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 12px;
+				line-height: 1.3;
+			}
+			.custif-pro-notice .notice-content {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 12px;
+			}
+			.custif-pro-notice .pro-badge {
+				background: #6366f1;
+				color: white;
+				padding: 1px 4px;
+				border-radius: 2px;
+				font-size: 9px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.3px;
+			}
+			.custif-pro-notice .notice-text {
+				color: #64748b;
+				font-weight: 400;
+			}
+			.custif-pro-notice .notice-actions {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				flex-shrink: 0;
+			}
+			.custif-pro-notice .demo-link,
+			.custif-pro-notice .upgrade-link {
+				text-decoration: none;
+				font-weight: 500;
+				font-size: 12px;
+				padding: 3px 10px;
+				border-radius: 5px;
+				transition: all 0.2s;
+			}
+			.custif-pro-notice .demo-link {
+				color: #64748b;
+				border: 1px solid #cbd5e1;
+			}
+			.custif-pro-notice .demo-link:hover {
+				background: #f1f5f9;
+				color: #475569;
+			}
+			.custif-pro-notice .upgrade-link {
+				color: #6366f1;
+				background: #f0f4ff;
+			}
+			.custif-pro-notice .upgrade-link:hover {
+				background: #e0e7ff;
+				color: #4f46e5;
+			}
+		</style>',
+			esc_html( sprintf( __( 'Upgrade to unlock this option', 'custom-iframe-widget-for-elementor' ) ) ),
+			esc_url( 'https://customiframe.com/early-bird/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta' ),
+			esc_html__( 'Get Pro', 'custom-iframe-widget-for-elementor' )
+		);
 	}
 }
 

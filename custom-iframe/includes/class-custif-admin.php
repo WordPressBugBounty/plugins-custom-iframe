@@ -231,7 +231,7 @@ class CustIF_Admin {
 												<li>🎥 <?php esc_html_e( 'YouTube & Vimeo Controls', 'custom-iframe' ); ?></li>
 												<li>🐦 <?php esc_html_e( 'Enhanced X (Twitter) Options', 'custom-iframe' ); ?></li>
 												<li>🎨 <?php esc_html_e( 'Custom Watermarks', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
-												<li>📚 <?php esc_html_e( '3D Flipbook PDF Viewer', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
+												<li>📚 <?php esc_html_e( '3D Flipbook PDF', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
 												<li>📱 <?php esc_html_e( 'Device Frame Display', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
 											</ul>
 										</div>
@@ -290,7 +290,7 @@ class CustIF_Admin {
 				<div class="resources-section cards-grid">
 						<div class="resource-card">
 							<div class="resource-title"><?php esc_html_e( 'Documentation', 'custom-iframe' ); ?></div>
-							<button class="resource-action"><a href="https://coderzstudio.com/plugin-doc/custom-iframe/?utm_source=wordpress&utm_medium=dashboard&utm_campaign=custom_iframe&utm_id=wp_04" target="_blank"><?php esc_html_e( 'Read Now', 'custom-iframe' ); ?></a></button>
+							<button class="resource-action"><a href="https://customiframe.com/docs/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=read_docs" target="_blank"><?php esc_html_e( 'Read Now', 'custom-iframe' ); ?></a></button>
 						</div>
 
 						<div class="resource-card">

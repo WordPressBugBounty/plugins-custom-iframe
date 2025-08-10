@@ -197,11 +197,11 @@ if ( ! class_exists( 'Deactivate_Feedback' ) ) {
 			check_ajax_referer( 'custif-deactivate-feedback', 'nonce' );
 
 			$reason_key = ! empty( $_POST['reason_key'] ) ? sanitize_text_field( wp_unslash( $_POST['reason_key'] ) ) : '';
-			$reason_text = ! empty( $_POST[ 'reason_' . $reason_key ] ) ? sanitize_text_field( wp_unslash( $_POST[ 'reason_' . $reason_key ] ) ) : '';
+			$reason_text = ! empty( $_POST['reason_text'] ) ? sanitize_text_field( wp_unslash( $_POST['reason_text'] ) ) : '';
 
 			$api_params = array(
 				'count' => 1,
-				'reason' => $reason_text ? $reason_text : $reason_key,
+				'reason' => $reason_key . ( ! empty( $reason_text ) ? ': ' . $reason_text : '' ),
 			);
 
 			$response = wp_remote_post(

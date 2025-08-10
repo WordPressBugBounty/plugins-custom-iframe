@@ -3,7 +3,7 @@ Contributors: coderzstudio
 Tags: elementor, pdf embed, youtube embed, google maps, twitter embed
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -49,8 +49,8 @@ With **lazy loading, security enhancements, and full customization**, you get to
 - 📚 **3D Flipbook PDF Viewer** – Interactive PDF viewing experience (coming soon)
 - 📱 **Device Frame Display** – Show content in device frames (coming soon)
 
-👉 **[Live Demo](https://coderzstudio.com/plugins/custom-iframe/demo/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
-👉 **[Get Premium Version](https://coderzstudio.com/plugins/custom-iframe/pricing/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+👉 **[Live Demo](https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo)**
+👉 **[Get Premium Version](https://customiframe.com/early-bird/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta)**
 
 **🔴 Watch the Video Tutorial ( <a href="https://www.youtube.com/watch?v=EB6MgWB6zLA" target="_blank">Link</a> )**
 
@@ -77,7 +77,7 @@ For detailed step-by-step tutorials, check out:
 
 == Screenshots ==
 
-1. Embed Any Type Of content without Limit.
+1. **Embed** Any Type Of content without Limit.
 2. **Embed Videos** – Video Player ( Youtube, Vimeo, etc.).
 3. **Embed Social Media Posts** – X, Linkdin, Instagram, etc.
 4. **Embed Pdfs** – Embed Downloadable PDFs.
@@ -117,7 +117,15 @@ A: Yes! Works seamlessly with both Elementor Free and Pro.
 
 == Changelog ==
 
-= 1.0.12 (July 10, 2025) =
+= 1.0.13 (August 3, 2025) =
+* Improvements : Improved Feedback form.
+* Improvements : Improved Dashboard design.
+* Improvements : Controller UI Improved.
+* Fixed : Auto height not working.
+* Fixed : Border radius not working with box shadows.
+* Compatibility: Elementor Version Free & Pro 3.31.
+
+= 1.0.12 (June 10, 2025) =
 * Compatibility: Added support for **YouTube Shorts** embed.
 * Compatibility: Added support for **Wistia Videos** embed.
 * Compatibility: Elementor Version Free & Pro 3.30.
@@ -183,8 +191,8 @@ Upgrade now for enhanced security and better iframe embedding experience!
 
 Need help? We're here for you!
 
-💬 **Website:** [CoderzStudio.com](https://coderzstudio.com/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)
-📖 **Docs:** [View Documentation](https://coderzstudio.com/plugin-doc/custom-iframe/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)
+💬 **Website:** [CoderzStudio.com](https://customiframe.com/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)
+📖 **Docs:** [View Documentation](https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo)
 🛠️ **Support:** [Submit a Request](https://wordpress.org/plugins/custom-iframe/#reviews)
 
 🌟 **Love the plugin?** [Leave a review on WordPress.org!](https://wordpress.org/plugins/custom-iframe/) ⭐⭐⭐⭐⭐

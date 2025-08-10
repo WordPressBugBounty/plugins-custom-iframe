@@ -12,16 +12,12 @@
 
         // Auto height only works when cross origin properly set
         if (autoHeight === 'yes') {
-            document.addEventListener('lazyshow', function (e) {
-                if (e.target === iframe) {
-                    try {
-                        var height = iframe.contentDocument.querySelector('html').scrollHeight;
-                        iframe.style.height = height + 'px';
-                    } catch (e) {
-                        console.log('Cross origin iframe detected');
-                    }
-                }
-            });
+            try {
+                var height = iframe.contentDocument.querySelector('html').scrollHeight;
+                iframe.style.height = height + 'px';
+            } catch (e) {
+                console.log('Cross origin iframe detected');
+            }
         }
 
         // Refresh interval
