@@ -117,7 +117,7 @@ A: Yes! Works seamlessly with both Elementor Free and Pro.
 
 == Changelog ==
 
-= 1.0.13 (August 3, 2025) =
+= 1.0.13 (August 10, 2025) =
 * Improvements : Improved Feedback form.
 * Improvements : Improved Dashboard design.
 * Improvements : Controller UI Improved.
@@ -125,7 +125,7 @@ A: Yes! Works seamlessly with both Elementor Free and Pro.
 * Fixed : Border radius not working with box shadows.
 * Compatibility: Elementor Version Free & Pro 3.31.
 
-= 1.0.12 (June 10, 2025) =
+= 1.0.12 (July 10, 2025) =
 * Compatibility: Added support for **YouTube Shorts** embed.
 * Compatibility: Added support for **Wistia Videos** embed.
 * Compatibility: Elementor Version Free & Pro 3.30.
@@ -191,8 +191,8 @@ Upgrade now for enhanced security and better iframe embedding experience!
 
 Need help? We're here for you!
 
-💬 **Website:** [CoderzStudio.com](https://customiframe.com/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)
-📖 **Docs:** [View Documentation](https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo)
+💬 **Website:** [customiframe.com](https://customiframe.com/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)
+📖 **Docs:** [View Documentation](https://customiframe.com/docs/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=read_docs)
 🛠️ **Support:** [Submit a Request](https://wordpress.org/plugins/custom-iframe/#reviews)
 
 🌟 **Love the plugin?** [Leave a review on WordPress.org!](https://wordpress.org/plugins/custom-iframe/) ⭐⭐⭐⭐⭐
