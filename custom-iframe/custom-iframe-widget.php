@@ -3,7 +3,7 @@
  * Plugin Name: Custom iFrame
  * Plugin URI: https://coderzstudio.com/plugins/custom-iframe
  * Description: An advanced Elementor widget to embed iFrames with customizable options.
- * Version: 1.0.13
+ * Version: 1.0.14
  * Author: Coderz Studio
  * Author URI: https://coderzstudio.com/
  * Text Domain: custom-iframe
@@ -50,7 +50,7 @@ function custif_load_textdomain() {
 add_action( 'init', 'custif_load_textdomain' );
 
 // Define constants.
-define( 'CUSTIF_VERSION', '1.0.13' );
+define( 'CUSTIF_VERSION', '1.0.14' );
 define( 'CUSTIF_URL', plugin_dir_url( __FILE__ ) );
 define( 'CUSTIF_PATH', plugin_dir_path( __FILE__ ) );
 

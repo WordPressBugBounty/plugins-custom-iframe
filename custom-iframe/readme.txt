@@ -3,7 +3,7 @@ Contributors: coderzstudio
 Tags: elementor, pdf embed, youtube embed, google maps, twitter embed
 Requires at least: 5.8
 Tested up to: 6.8
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -116,6 +116,10 @@ A: Yes! Lazy loading speeds up your page by loading iFrames only when needed.
 A: Yes! Works seamlessly with both Elementor Free and Pro.
 
 == Changelog ==
+
+= 1.0.14 (September 14, 2025) =
+* Compatibility : Added support for **Google My Maps** embed.
+* Fix : Security Patch (Low Security).
 
 = 1.0.13 (August 10, 2025) =
 * Improvements : Improved Feedback form.

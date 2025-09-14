@@ -31,7 +31,7 @@ class Embed_Converter {
 		$parsed_url = wp_parse_url( $url );
 
 		if ( ! isset( $parsed_url['host'] ) ) {
-			return $url; // Return original if invalid.
+			return esc_url( $url ); // Return original if invalid.
 		}
 
 		$host       = str_replace( 'www.', '', $parsed_url['host'] );
@@ -171,6 +171,50 @@ class Embed_Converter {
 				if ( $media_id ) {
 					return "https://fast.wistia.net/embed/iframe/{$media_id}?seo=false&videoFoam=true";
 				}
+			}
+		}
+
+		// Google My Maps Embed.
+		if ( 'google.com' === $host && str_contains( $path, 'maps/d/' ) ) {
+			// Parse URL parameters to get the map ID and other parameters.
+			$query = $parsed_url['query'] ?? '';
+			parse_str( $query, $query_params );
+
+			// Get map ID from query parameters.
+			$map_id = $query_params['mid'] ?? '';
+
+			// If not in query, try to extract from path.
+			if ( empty( $map_id ) ) {
+				$path_parts = explode( '/', $path );
+				$d_index = array_search( 'd', $path_parts );
+
+				if ( $d_index !== false && isset( $path_parts[ $d_index + 1 ] ) ) { // phpcs:ignore WordPress.PHP.YodaConditions.NotYoda
+					$map_id = $path_parts[ $d_index + 1 ];
+				}
+			}
+
+			// If we have a valid map ID, build the embed URL.
+			if ( ! empty( $map_id ) ) {
+				$embed_url = "https://www.google.com/maps/d/embed?mid={$map_id}";
+
+				// Add additional parameters if they exist.
+				$additional_params = array();
+				if ( isset( $query_params['ll'] ) ) {
+					$additional_params['ll'] = $query_params['ll'];
+				}
+				if ( isset( $query_params['z'] ) ) {
+					$additional_params['z'] = $query_params['z'];
+				}
+				if ( isset( $query_params['ehbc'] ) ) {
+					$additional_params['ehbc'] = $query_params['ehbc'];
+				}
+
+				// Append additional parameters if any.
+				if ( ! empty( $additional_params ) ) {
+					$embed_url .= '&' . http_build_query( $additional_params );
+				}
+
+				return $embed_url;
 			}
 		}
 
