@@ -11,7 +11,8 @@
     --warning: #FF9800;
     --error: #F44336;
 }
-.welcome-section{
+
+.welcome-section {
     background-image: url('../../images/dashboard-preview.png');
     background-size: cover;
     background-position: center;
@@ -20,9 +21,11 @@
     background-size: contain;
     background-position: right;
 }
+
 .custif-admin-wrap {
     margin: 20px 20px 0 0;
-    font-family: 'Figtree', sans-serif; /* Apply font only to the wrapper */
+    font-family: 'Figtree', sans-serif;
+    /* Apply font only to the wrapper */
 }
 
 /* Header */
@@ -480,12 +483,15 @@
 }
 
 .pro-features-list .coming-soon {
-    font-size: 12px;
-    color: #100D3F;
+    font-size: 11px;
+    color: #ffffff;
     margin-left: 5px;
-    font-style: italic;
     white-space: nowrap;
-    font-weight: 500;
+    background: var(--primary);
+    padding: 3px 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
 /* License status styles */
@@ -639,18 +645,22 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     margin-top: 30px;
 }
+
 .get-started-section .section-title {
     margin-top: 0;
     margin-bottom: 20px;
 }
+
 .video-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
     max-width: 100%;
     background: #000;
 }
+
 .video-container iframe {
     position: absolute;
     top: 0;
@@ -717,4 +727,4 @@
         width: 100%;
         justify-content: center;
     }
-} 
+}

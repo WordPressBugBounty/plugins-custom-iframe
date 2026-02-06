@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     'use strict';
 
     var $deactivateLink = $('#the-list').find('[data-slug="custom-iframe"] span.deactivate a'),
@@ -13,14 +13,14 @@ jQuery(document).ready(function($) {
     $dialog.append($submitButton);
 
     // Show dialog when deactivate link is clicked
-    $deactivateLink.on('click', function(e) {
+    $deactivateLink.on('click', function (e) {
         e.preventDefault();
         $('body').append($overlay);
         $dialog.addClass('active');
     });
 
     // Handle skip button click
-    $skipButton.on('click', function() {
+    $skipButton.on('click', function () {
         $.ajax({
             url: ajaxurl,
             type: 'POST',
@@ -28,14 +28,14 @@ jQuery(document).ready(function($) {
                 action: 'custif_skip_feedback',
                 nonce: $form.find('input[name="nonce"]').val()
             },
-            success: function() {
+            success: function () {
                 window.location.href = $deactivateLink.attr('href');
             }
         });
     });
 
     // Handle submit button click
-    $submitButton.on('click', function() {
+    $submitButton.on('click', function () {
         var $selectedReason = $form.find('input[name="reason_key"]:checked'),
             $reasonText = $form.find('input[name="reason_' + $selectedReason.val() + '"]');
 
@@ -58,24 +58,24 @@ jQuery(document).ready(function($) {
                 reason_key: $selectedReason.val(),
                 reason_text: $reasonText.val()
             },
-            success: function() {
+            success: function () {
                 window.location.href = $deactivateLink.attr('href');
             }
         });
     });
 
     // Close dialog when clicking outside
-    $overlay.on('click', function() {
+    $overlay.on('click', function () {
         $dialog.removeClass('active');
         $overlay.remove();
     });
 
     // Show/hide reason text input based on selection
-    $form.find('input[name="reason_key"]').on('change', function() {
+    $form.find('input[name="reason_key"]').on('change', function () {
         $form.find('.custif-feedback-text').hide();
         var $selectedReason = $(this),
             $reasonText = $form.find('input[name="reason_' + $selectedReason.val() + '"]');
-        
+
         if ($reasonText.length) {
             $reasonText.show();
         }

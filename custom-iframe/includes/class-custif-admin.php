@@ -223,16 +223,16 @@ class CustIF_Admin {
 												<li>🛠️ <?php esc_html_e( 'Premium Support', 'custom-iframe' ); ?></li>
 												<li>🌐 <?php esc_html_e( '100+ Embed Sources', 'custom-iframe' ); ?></li>
 												<li>⚙️ <?php esc_html_e( 'Custom iFrame Attributes', 'custom-iframe' ); ?></li>
-												<li>🔒 <?php esc_html_e( 'Advanced Security Options', 'custom-iframe' ); ?></li>
+												<li>🎨 <?php esc_html_e( 'Custom Watermarks', 'custom-iframe' ); ?> <span class="coming-soon"><?php esc_html_e( 'new', 'custom-iframe' ); ?></span></li>
 											</ul>
 										</div>
 										<div class="pro-features-column">
 											<ul class="pro-features-list">
+												<li>🔒 <?php esc_html_e( 'Advanced Security Options', 'custom-iframe' ); ?></li>
 												<li>🎥 <?php esc_html_e( 'YouTube & Vimeo Controls', 'custom-iframe' ); ?></li>
 												<li>🐦 <?php esc_html_e( 'Enhanced X (Twitter) Options', 'custom-iframe' ); ?></li>
-												<li>🎨 <?php esc_html_e( 'Custom Watermarks', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
-												<li>📚 <?php esc_html_e( '3D Flipbook PDF', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
-												<li>📱 <?php esc_html_e( 'Device Frame Display', 'custom-iframe' ); ?> <span class="coming-soon">(<?php esc_html_e( 'coming soon', 'custom-iframe' ); ?>)</span></li>
+												<li>📚 <?php esc_html_e( '3D Flipbook PDF', 'custom-iframe' ); ?> <span class="coming-soon"><?php esc_html_e( 'popular', 'custom-iframe' ); ?></span></li>
+												<li>📱 <?php esc_html_e( 'Device Frame Display', 'custom-iframe' ); ?> <span class="coming-soon"><?php esc_html_e( 'new', 'custom-iframe' ); ?></span></li>
 											</ul>
 										</div>
 									</div>

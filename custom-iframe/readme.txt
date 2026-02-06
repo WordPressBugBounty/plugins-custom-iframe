@@ -1,56 +1,56 @@
-=== Custom iFrame for Elementor – Embed Pdf, Maps, Videos, & Websites Easily ===
+=== Custom iFrame – Embed PDFs, Videos, and External Content in WordPress (Elementor & Gutenberg) ===
 Contributors: coderzstudio
-Tags: elementor, pdf embed, youtube embed, google maps, twitter embed
+Tags: embed pdf, iframe, elementor, gutenberg, embed youtube, 3d flip book
 Requires at least: 5.8
-Tested up to: 6.8
-Stable tag: 1.0.14
+Tested up to: 6.9
+Stable tag: 2.0.2
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
-Easily embed secure, SEO-friendly, and responsive iFrames in Elementor with lazy loading, auto-height adjustment, and dynamic URL support.
+Easily embed secure, SEO-friendly, and responsive iFrames in WordPress using Elementor or Gutenberg with lazy loading, auto-height adjustment, and dynamic URL support.
 
 == Description ==
 
-**The Ultimate iFrame Solution for Elementor!**
+**The Ultimate iFrame Solution for WordPress – Elementor & Gutenberg!**
 
-Want to embed external content seamlessly into your WordPress site? **Custom iFrame for Elementor** lets you integrate Pdfs, videos, music players, Google Maps, and third-party websites into Elementor pages without coding.
+Want to embed external content seamlessly into your WordPress site? **Custom iFrame** lets you integrate PDFs, videos, music players, Google Maps, and third-party websites into your pages using either **Elementor** or the **Gutenberg Block Editor** – no coding required.
 
 With **lazy loading, security enhancements, and full customization**, you get total control over how your iFrames look and function.
 
 **🔥 Key Features:**
 
 - **Embed Anything with Ease:**
-  - 🎥 YouTube & Vimeo – Supports autoplay, mute, and aspect ratios.
-  - 🎵 SoundCloud & Spotify – Add playlists, podcasts, and music players.
-  - 🗺️ Google Maps – Fully interactive with zoom levels and custom styles.
-  - 🌍 Third-Party Websites – Securely embed external pages into Elementor.
-  - 📊 Web Apps & Dashboards – Display analytics, widgets, and live content.
-  - 📄 PDF Files – Embed documents with scroll, zoom, and download options.
+  - **YouTube & Vimeo** – Supports autoplay, mute, and aspect ratios.
+  - **SoundCloud & Spotify** – Add playlists, podcasts, and music players.
+  - **Google Maps** – Fully interactive with zoom levels and custom styles.
+  - **Third-Party Websites** – Securely embed external pages into Elementor.
+  - **Web Apps & Dashboards** – Display analytics, widgets, and live content.
+  - **PDF Files** – Embed documents with scroll, zoom, and download options.
 
 - **Performance & Customization:**
-  - 📏 **Responsive Height Control** – Define height in pixels, percentages, or viewport units.
-  - 🔄 **Auto Height Adjustment** – iFrame resizes automatically to match content.
-  - 🚀 **Lazy Loading & Placeholder Image** – Improves page speed and UX.
-  - ⏳ **Auto-Refresh Option** – Set refresh intervals for dynamic content updates.
-  - 🎨 **Custom Styling** – Adjust borders, shadows, spacing, and more inside Elementor.
-  - 📱 **Mobile-Friendly & SEO-Optimized** – Ensures content displays perfectly on all devices.
+  - **Responsive Height Control** – Define height in pixels, percentages, or viewport units.
+  - **Auto Height Adjustment** – iFrame resizes automatically to match content.
+  - **Lazy Loading & Placeholder Image** – Improves page speed and UX.
+  - **Auto-Refresh Option** – Set refresh intervals for dynamic content updates.
+  - **Custom Styling** – Adjust borders, shadows, spacing, and more inside Elementor.
+  - **Mobile-Friendly & SEO-Optimized** – Ensures content displays perfectly on all devices.
 
 **🔥 Premium Features:**
 
-- 🔄 **Lifetime Updates** – Get all future updates and improvements
-- 🛠️ **Premium Support** – Priority support from our expert team
-- 🌐 **100+ Embed Sources** – Support for extensive range of content sources
-- ⚙️ **Custom iFrame Attributes** – Advanced control over iframe properties
-- 🔒 **Advanced Security Options** – Enhanced protection for embedded content
-- 🎥 **YouTube & Vimeo Controls** – Advanced settings for video embeds
-- 🐦 **Enhanced X (Twitter) Options** – Better control over X post embeds
-- 🎨 **Custom Watermarks** – Add your branding to embeds (coming soon)
-- 📚 **3D Flipbook PDF Viewer** – Interactive PDF viewing experience (coming soon)
-- 📱 **Device Frame Display** – Show content in device frames (coming soon)
+- **Lifetime Updates** – Get all future updates and improvements
+- **Premium Support** – Priority support from our expert team
+- **100+ Embed Sources** – Support for extensive range of content sources
+- **Custom iFrame Attributes** – Advanced control over iframe properties
+- **Advanced Security Options** – Enhanced protection for embedded content
+- **YouTube & Vimeo Controls** – Advanced settings for video embeds
+- **Enhanced X (Twitter) Options** – Better control over X post embeds
+- **Custom Watermarks** – Add your branding to embeds
+- **3D Flipbook PDF Viewer** – Interactive PDF viewing experience
+- **Device Frame Display** – Show content in device frames
 
 👉 **[Live Demo](https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo)**
-👉 **[Get Premium Version](https://customiframe.com/early-bird/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta)**
+👉 **[Get Premium Version](https://customiframe.com/pricing/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta)**
 
 **🔴 Watch the Video Tutorial ( <a href="https://www.youtube.com/watch?v=EB6MgWB6zLA" target="_blank">Link</a> )**
 
@@ -60,14 +60,22 @@ https://www.youtube.com/watch?v=EB6MgWB6zLA
 
 1. Download and upload the plugin to `/wp-content/plugins/custom-iframe` or install it via the WordPress repository.
 2. Activate the plugin via the ‘Plugins’ menu in WordPress.
-3. Open **Elementor**, add the **Custom iFrame Widget**, and configure your settings.
+3. **For Elementor:** Open Elementor, add the **Custom iFrame Widget**, and configure your settings.
+4. **For Gutenberg:** Open the Block Editor, add the **Custom iFrame** block, and configure your settings.
 
 == Usage ==
 
+**Using Elementor:**
 1. Drag and drop the **Custom iFrame Widget** into your Elementor page.
 2. Enter the URL of the external content (e.g., YouTube video, Google Maps).
 3. Configure iframe settings such as height, lazy loading, and styling.
 4. Preview and publish your page for seamless embedding.
+
+**Using Gutenberg:**
+1. Add the **Custom iFrame** block to your post or page.
+2. Enter the URL of the external content you want to embed.
+3. Configure settings in the block sidebar (height, lazy loading, styling, etc.).
+4. Preview and publish your content.
 
 For detailed step-by-step tutorials, check out:
 📌 **[How to Set Up Custom Iframe in Elementor](https://coderzstudio.com/docs/how-to-set-up-custom-iframe-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
@@ -81,6 +89,7 @@ For detailed step-by-step tutorials, check out:
 2. **Embed Videos** – Video Player ( Youtube, Vimeo, etc.).
 3. **Embed Social Media Posts** – X, Linkdin, Instagram, etc.
 4. **Embed Pdfs** – Embed Downloadable PDFs.
+5. **Embed Anything in WordPress**.
 
 == Frequently Asked Questions ==
 
@@ -115,7 +124,38 @@ A: Yes! Lazy loading speeds up your page by loading iFrames only when needed.
 **Q: Will it work with all Elementor versions?**
 A: Yes! Works seamlessly with both Elementor Free and Pro.
 
+**Q: Does it work with the Gutenberg block editor?**
+A: Yes! Starting from version 2.0.0, the plugin includes a dedicated Gutenberg block with full feature support.
+
+**Q: Can I use this plugin without Elementor?**
+A: Absolutely! You can use the Gutenberg block to embed iFrames without needing Elementor installed.
+
 == Changelog ==
+
+= 2.0.2 (February 04, 2026) =
+* Fix : Plugin Notice not Dismissed.
+* Improvements : Widget Controller UI Improvements.
+
+= 2.0.1 (February 03, 2026) =
+* Fix : Plugin Activation Notice not Dismissed.
+
+= 2.0.0 (January 30, 2026) =
+* Added : Added Gutenberg Block.
+* Added : Added Support for **Elementor 3.4**.
+
+= 1.0.18 (December 30, 2025) =
+* Improvements : Improves admin dashboard design.
+
+= 1.0.17 (December 26, 2025) =
+* Compatibility: Elementor Version Free & Pro 3.34.
+
+= 1.0.16 (December 10, 2025) =
+* Improvements : Controller UI Improvements.
+* Compatibility : Added support for **WordPress 6.9**.
+
+= 1.0.15 (November 25, 2025) =
+* Improvements : Improves admin dashboard design.
+* Compatibility : Added support for **Elementor 3.33**.
 
 = 1.0.14 (September 14, 2025) =
 * Compatibility : Added support for **Google My Maps** embed.

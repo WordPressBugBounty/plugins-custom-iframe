@@ -26,7 +26,7 @@ class Assets_Manager {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_assets' ) );
+		add_action( 'init', array( $this, 'register_frontend_assets' ) );
 		add_action( 'elementor/frontend/after_enqueue_styles', array( $this, 'enqueue_frontend_styles' ) );
 		add_action( 'elementor/frontend/after_register_scripts', array( $this, 'enqueue_frontend_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );

@@ -23,11 +23,18 @@ class Embed_Converter {
 	 * into their proper embed formats.
 	 *
 	 * @param  string $url  The original URL to convert.
+	 * @param  array  $settings  Optional controller settings value.
 	 *
 	 * @return string The converted embed URL or the original URL if invalid.
 	 * @since 1.0.0
 	 */
-	public function convert_social_to_embed( $url ) {
+	public function convert_social_to_embed( $url, $settings = array() ) {
+		// Filter allows Pro to override conversion logic.
+		$pro_url = apply_filters( 'custif_embed_url', null, $url, $settings );
+		if ( null !== $pro_url ) {
+			return $pro_url;
+		}
+
 		$parsed_url = wp_parse_url( $url );
 
 		if ( ! isset( $parsed_url['host'] ) ) {

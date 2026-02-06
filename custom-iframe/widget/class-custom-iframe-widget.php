@@ -264,6 +264,38 @@ class Custom_IFrame_Widget extends Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'pdf_view_mode',
+			array(
+				'label'        => __( '3D Flipbook View', 'custom-iframe' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'custom-iframe' ),
+				'label_off'    => __( 'No', 'custom-iframe' ),
+				'return_value' => 'yes',
+				'default'      => '',
+				'condition'    => array(
+					'source' => 'Pdf',
+					'pdf_type' => 'file',
+				),
+				'separator'    => 'before',
+			)
+		);
+
+		$this->add_control(
+			'pdf_view_mode_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'source' => 'Pdf',
+					'pdf_view_mode' => 'yes',
+				),
+			)
+		);
+
 		$this->add_responsive_control(
 			'iframe_height',
 			array(
@@ -337,6 +369,29 @@ class Custom_IFrame_Widget extends Widget_Base {
 				'description' => __( 'Set 0 to disable auto-refresh', 'custom-iframe' ),
 				'condition'   => array(
 					'source!' => 'Pdf',
+				),
+			)
+		);
+
+		$this->add_control(
+			'allow_fullscreen_button',
+			array(
+				'label'   => __( 'Show Fullscreen Button', 'custom-iframe' ),
+				'type'    => Controls_Manager::SWITCHER,
+				'default' => 'no',
+			)
+		);
+
+		$this->add_control(
+			'allow_fullscreen_button_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+				'condition' => array(
+					'allow_fullscreen_button' => 'yes',
 				),
 			)
 		);
@@ -1086,6 +1141,48 @@ class Custom_IFrame_Widget extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'watermark_section',
+			array(
+				'label' => __( 'Watermark', 'custom-iframe' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'watermark_section_pro',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'device_frame_section',
+			array(
+				'label' => __( 'Device Frame', 'custom-iframe' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			)
+		);
+
+		$this->add_control(
+			'device_frame',
+			array(
+				'label'       => '',
+				'type'        => Controls_Manager::RAW_HTML,
+				'default'     => '',
+				'description' => '',
+				'raw'         => $this->pro_plugin_notice(),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'style_section',
 			array(
 				'label' => __( 'Style', 'custom-iframe' ),
@@ -1240,74 +1337,13 @@ class Custom_IFrame_Widget extends Widget_Base {
 	 * @since 1.0.0
 	 */
 	protected function render() {
-		$settings  = $this->get_settings_for_display();
-		$iframe_id = ! empty( $settings['custif_custom_id'] ) ? esc_attr( $settings['custif_custom_id'] ) : 'custif-iframe-' . $this->get_id();
-		$source    = ! empty( $settings['source'] ) ? $settings['source'] : 'default';
-		$pdf_type  = ! empty( $settings['pdf_type'] ) ? $settings['pdf_type'] : 'file';
+		$settings = $this->get_settings_for_display();
 
-		// Properly get URL from settings.
-		$url = ! empty( $settings['iframe_url']['url'] ) ? $settings['iframe_url']['url'] : '';
-		$url = $this->embed_converter->convert_social_to_embed( $url );
-
-		if ( 'url' === $pdf_type && ! empty( $settings['pdf_file_link']['url'] ) ) {
-			$url = esc_url( $settings['pdf_file_link']['url'] );
+		if ( ! class_exists( 'custif\includes\Renderer' ) ) {
+			require_once CUSTIF_PATH . 'includes/class-renderer.php';
 		}
 
-		// Prepare placeholder image if needed.
-		$placeholder_style = '';
-		if ( ! empty( $settings['enable_lazy_load'] ) && ! empty( $settings['placeholder_image']['url'] ) ) {
-			$placeholder_style = 'background-image: url(' . esc_url( $settings['placeholder_image']['url'] ) . '); background-size: cover; background-position: center;';
-		}
-
-		$iframe_attributes = array(
-			'style'                 => $placeholder_style,
-			'scrolling'             => $settings['show_scrollbars'] ? 'yes' : 'no',
-			'data-auto-height'      => $settings['auto_height'],
-			'data-refresh-interval' => $settings['refresh_interval'],
-			'loading'               => ! empty( $settings['enable_lazy_load'] ) ? 'lazy' : '',
-			'src'                   => esc_url( $url ),
-		);
-		$iframe_attributes = apply_filters( 'custif_iframe_attributes', $iframe_attributes, $settings );
-
-		$iframe_html = '<iframe';
-
-		foreach ( $iframe_attributes as $attr => $value ) {
-			if ( '' !== $value && null !== $value ) {
-				$iframe_html .= ' ' . esc_attr( $attr ) . '="' . esc_attr( $value ) . '"';
-			}
-		}
-
-		$iframe_html .= '></iframe>';
-
-		?>
-		<div class="custif-iframe-wrapper" id="<?php echo esc_attr( $iframe_id ); ?>">
-			<?php if ( ( ! empty( $source ) && 'Pdf' !== $source ) || ( 'url' === $pdf_type && ! empty( $settings['pdf_file_link']['url'] ) ) ) : ?>
-				<?php if ( ! empty( $url ) ) : ?>
-					<?php
-					if ( filter_var( $url, FILTER_VALIDATE_URL ) ) {
-						echo $iframe_html; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					} else {
-						echo $url; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					}
-					?>
-				<?php else : ?>
-					<div class="custif-iframe-notice">
-						<div class="notice-icon">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-								<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-									  stroke-width="2"
-									  d="M12 8v4m0 4h.01M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10z"/>
-							</svg>
-						</div>
-						<p><?php esc_html_e( 'Please enter a valid URL', 'custom-iframe' ); ?></p>
-					</div>
-				<?php endif; ?>
-				<?php
-			elseif ( ! empty( $source ) && 'Pdf' === $source ) :
-				$this->pdf_handler->embed_pdf( $settings );
-			endif;
-			?>
-		</div>
-		<?php
+		$renderer = new \custif\includes\Renderer();
+		$renderer->render( $settings, $this->get_id() );
 	}
 }

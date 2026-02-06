@@ -27,6 +27,71 @@ class Notice_Manager {
 		add_action( 'admin_init', array( $this, 'check_elementor' ) );
 		add_action( 'admin_notices', array( $this, 'custom_iframe_activation_notice' ) );
 		add_action( 'admin_notices', array( $this, 'custom_iframe_rating_notice' ) );
+
+		// AJAX handlers for dismissing notices.
+		add_action( 'wp_ajax_custif_dismiss_notice', array( $this, 'ajax_dismiss_notice' ) );
+		add_action( 'admin_footer', array( $this, 'notice_dismiss_script' ) );
+	}
+
+	/**
+	 * Handle AJAX request to dismiss a notice.
+	 *
+	 * @return void
+	 * @since 1.0.15
+	 */
+	public function ajax_dismiss_notice() {
+		// Verify nonce.
+		if ( ! check_ajax_referer( 'custif_dismiss_notice', 'nonce', false ) ) {
+			wp_send_json_error( 'Invalid nonce' );
+		}
+
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			wp_send_json_error( 'Insufficient permissions' );
+		}
+
+		$notice_type = isset( $_POST['notice_type'] ) ? sanitize_key( $_POST['notice_type'] ) : '';
+
+		$meta_keys = array(
+			'custif-elementor-notice'  => '_custif_elementor_notice_dismissed',
+		);
+
+		if ( isset( $meta_keys[ $notice_type ] ) ) {
+			update_user_meta( get_current_user_id(), $meta_keys[ $notice_type ], 1 );
+			wp_send_json_success();
+		}
+
+		wp_send_json_error( 'Unknown notice type' );
+	}
+
+	/**
+	 * Output JavaScript for handling notice dismissals.
+	 *
+	 * @return void
+	 * @since 1.0.15
+	 */
+	public function notice_dismiss_script() {
+		?>
+		<script>
+		jQuery(document).ready(function($) {
+			$('.notice[data-dismissible]').on('click', '.notice-dismiss', function() {
+				var $notice = $(this).closest('.notice');
+				var noticeType = $notice.data('dismissible');
+				
+				if (noticeType) {
+					$.ajax({
+						url: ajaxurl,
+						type: 'POST',
+						data: {
+							action: 'custif_dismiss_notice',
+							notice_type: noticeType,
+							nonce: '<?php echo esc_js( wp_create_nonce( 'custif_dismiss_notice' ) ); ?>'
+						}
+					});
+				}
+			});
+		});
+		</script>
+		<?php
 	}
 
 	/**
@@ -46,8 +111,8 @@ class Notice_Manager {
 	/**
 	 * Display admin notice for missing Elementor dependency.
 	 *
-	 * Shows a notice with appropriate button to either install or activate Elementor
-	 * based on its current installation status.
+	 * Shows an informational notice about Elementor widget availability.
+	 * The plugin works with Gutenberg without Elementor.
 	 *
 	 * @return void
 	 * @since 1.0.0
@@ -57,13 +122,18 @@ class Notice_Manager {
 			return;
 		}
 
+		// Check if user has dismissed this notice.
+		if ( get_user_meta( get_current_user_id(), '_custif_elementor_notice_dismissed', true ) ) {
+			return;
+		}
+
 		$elementor_installed = file_exists( WP_PLUGIN_DIR . '/elementor/elementor.php' );
 
 		// translators: Text for the button to activate Elementor plugin.
 		$button_text = $elementor_installed ?
-			__( 'Activate Elementor Now', 'custom-iframe' ) :
+			__( 'Activate Elementor', 'custom-iframe' ) :
 			// translators: Text for the button to install Elementor plugin.
-			__( 'Install Elementor Now', 'custom-iframe' );
+			__( 'Install Elementor', 'custom-iframe' );
 
 		$button_url = $elementor_installed ?
 			wp_nonce_url(
@@ -76,14 +146,19 @@ class Notice_Manager {
 			);
 
 		printf(
-			'<div class="notice notice-error is-dismissible"><p>%s</p><p><a href="%s" class="button-primary">%s</a></p></div>',
-			// translators: Notice text shown when Elementor is not installed or activated.
-			esc_html__(
-				'Custom iFrame Widget requires Elementor to be installed and active.',
-				'custom-iframe'
-			),
+			'<div class="notice notice-info is-dismissible" data-dismissible="custif-elementor-notice">
+			<p><strong>%s</strong></p>
+			<p>%s</p>
+			<p>
+				<a href="%s" class="button button-secondary">%s</a>
+				<span style="margin-left: 10px; color: #666;">%s</span>
+			</p>
+			</div>',
+			esc_html__( 'Custom iFrame - Elementor Widget Available', 'custom-iframe' ),
+			esc_html__( 'You can use the Gutenberg block right away! If you also use Elementor, install it to unlock the Elementor widget.', 'custom-iframe' ),
 			esc_url( $button_url ),
-			esc_html( $button_text )
+			esc_html( $button_text ),
+			esc_html__( 'Optional - Skip if you only use Gutenberg', 'custom-iframe' )
 		);
 	}
 
@@ -122,7 +197,7 @@ class Notice_Manager {
 		</style>
 		<div class="notice notice-success is-dismissible custom-iframe-notice" data-dismissible="custom-iframe-notice">
 		<h2>✅ ' . esc_html__( 'Custom iFrame Activated!', 'custom-iframe' ) . '</h2>
-		<p>' . esc_html__( 'Edit a page with Elementor, search for "Custom iFrame" in the widget panel, and drag it into your layout.', 'custom-iframe' ) . '</p>
+		<p>' . esc_html__( 'Edit a page with Elementor or Gutenberg then search for "Custom iFrame" in the widget/ block panel, and drag it into your layout.', 'custom-iframe' ) . '</p>
 		<p>
 			<a href="https://youtu.be/EB6MgWB6zLA?si=IqG88NkkM_DC84Ds" target="_blank">🎥 Video Tutorial</a> &nbsp;|&nbsp; 
 			<a href="https://customiframe.com/demo/?utm_source=elementor&utm_medium=widget_settings&utm_campaign=demo" target="_blank">🔗 Live Demo</a>
@@ -228,6 +303,7 @@ class Notice_Manager {
 			<div class="notice-actions">
 				<a href="%s" target="_blank" class="upgrade-link">%s</a>
 			</div>
+			<span class="notice-discount">%s %s</span>
 		</div>
 		<style>
 			.custif-pro-notice {
@@ -241,12 +317,15 @@ class Notice_Manager {
 				justify-content: space-between;
 				font-size: 12px;
 				line-height: 1.3;
+				flex-wrap: wrap;
+				gap: 10px;
 			}
 			.custif-pro-notice .notice-content {
 				display: flex;
 				align-items: center;
 				gap: 6px;
 				font-size: 12px;
+				flex-wrap: wrap;
 			}
 			.custif-pro-notice .pro-badge {
 				background: #6366f1;
@@ -293,10 +372,78 @@ class Notice_Manager {
 				background: #e0e7ff;
 				color: #4f46e5;
 			}
+			.notice-discount{
+				color: #16a34a;
+				font-weight: 600;
+				background: #dcfce7;
+				padding: 3px 6px;
+				border-radius: 4px;
+				font-size: 11px;
+				display: inline-flex;
+				align-items: center;
+				gap: 5px;
+			}
+			.custif-copy-btn {
+				background: none;
+				border: none;
+				padding: 0;
+				margin: 0;
+				cursor: pointer;
+				color: #16a34a;
+				display: inline-flex;
+				align-items: center;
+				opacity: 0.7;
+				transition: opacity 0.2s;
+			}
+			.custif-copy-btn:hover {
+				opacity: 1;
+			}
 		</style>',
 			esc_html( sprintf( __( 'Upgrade to unlock this option', 'custom-iframe-widget-for-elementor' ) ) ),
-			esc_url( 'https://customiframe.com/early-bird/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta' ),
-			esc_html__( 'Get Pro', 'custom-iframe-widget-for-elementor' )
+			esc_url( 'https://customiframe.com/pricing/?utm_source=plugin&utm_medium=wpdashboard&utm_campaign=upgrade_cta' ),
+			esc_html__( 'Get Pro', 'custom-iframe-widget-for-elementor' ),
+			esc_html__( 'Get 40% discount with code 40SPECIAL', 'custom-iframe-widget-for-elementor' ),
+			'<button type="button" class="custif-copy-btn" onclick="custifCopyCode(this, \'40SPECIAL\')" title="' . esc_attr__( 'Copy Code', 'custom-iframe-widget-for-elementor' ) . '">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+			</button>
+			<script>
+				function custifCopyCode(btn, code) {
+					var success = false;
+					if (navigator.clipboard && window.isSecureContext) {
+						navigator.clipboard.writeText(code).then(function() {
+							custifShowCopied(btn);
+						}, function(err) {
+							console.error(\'Could not copy text: \', err);
+							custifFallbackCopy(btn, code);
+						});
+					} else {
+						custifFallbackCopy(btn, code);
+					}
+				}
+				function custifFallbackCopy(btn, code) {
+					var textArea = document.createElement("textarea");
+					textArea.value = code;
+					textArea.style.position = "fixed";
+					textArea.style.left = "-9999px";
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+					try {
+						var successful = document.execCommand(\'copy\');
+						if (successful) custifShowCopied(btn);
+					} catch (err) {
+						console.error(\'Fallback: Oops, unable to copy\', err);
+					}
+					document.body.removeChild(textArea);
+				}
+				function custifShowCopied(btn) {
+					var originalIcon = btn.innerHTML;
+					btn.innerHTML = \'<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>\';
+					setTimeout(function() {
+						btn.innerHTML = originalIcon;
+					}, 2000);
+				}
+			</script>'
 		);
 	}
 }

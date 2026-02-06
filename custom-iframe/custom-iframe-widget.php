@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Custom iFrame
  * Plugin URI: https://coderzstudio.com/plugins/custom-iframe
- * Description: An advanced Elementor widget to embed iFrames with customizable options.
- * Version: 1.0.14
+ * Description: An advanced plugin to embed iFrames with customizable options.
+ * Version: 2.0.2
  * Author: Coderz Studio
  * Author URI: https://coderzstudio.com/
  * Text Domain: custom-iframe
@@ -18,8 +18,8 @@
  *
  * Requires at least: 5.8
  * Requires PHP: 7.4
- * Elementor tested up to: 3.31
- * Elementor Pro tested up to: 3.31
+ * Elementor tested up to: 3.4
+ * Elementor Pro tested up to: 3.4
  */
 
 // If this file is called directly, abort.
@@ -50,7 +50,7 @@ function custif_load_textdomain() {
 add_action( 'init', 'custif_load_textdomain' );
 
 // Define constants.
-define( 'CUSTIF_VERSION', '1.0.14' );
+define( 'CUSTIF_VERSION', '2.0.2' );
 define( 'CUSTIF_URL', plugin_dir_url( __FILE__ ) );
 define( 'CUSTIF_PATH', plugin_dir_path( __FILE__ ) );
 
@@ -64,3 +64,6 @@ if ( ! empty( $include_files ) ) {
 		}
 	}
 }
+
+// Load Gutenberg Block.
+require_once CUSTIF_PATH . 'includes/class-gutenberg-block.php';
