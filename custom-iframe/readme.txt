@@ -3,7 +3,7 @@ Contributors: coderzstudio
 Tags: embed pdf, iframe, elementor, gutenberg, embed youtube, 3d flip book
 Requires at least: 5.8
 Tested up to: 6.9
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
@@ -131,6 +131,11 @@ A: Yes! Starting from version 2.0.0, the plugin includes a dedicated Gutenberg b
 A: Absolutely! You can use the Gutenberg block to embed iFrames without needing Elementor installed.
 
 == Changelog ==
+
+= 2.0.3 (April 19, 2026) =
+* Improvements : Gutenberg Block UI Improvements.
+* Compatibility : Added support for **Elementor 4.0**.
+* Fix : Minor Bug Fixes.
 
 = 2.0.2 (February 04, 2026) =
 * Fix : Plugin Notice not Dismissed.

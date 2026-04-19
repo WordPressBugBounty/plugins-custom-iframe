@@ -473,7 +473,23 @@
       "type": "string",
       "default": "10px"
     },
+    "fullscreenPositionXTablet": {
+      "type": "string",
+      "default": "10px"
+    },
+    "fullscreenPositionXMobile": {
+      "type": "string",
+      "default": "10px"
+    },
     "fullscreenPositionY": {
+      "type": "string",
+      "default": "10px"
+    },
+    "fullscreenPositionYTablet": {
+      "type": "string",
+      "default": "10px"
+    },
+    "fullscreenPositionYMobile": {
       "type": "string",
       "default": "10px"
     },

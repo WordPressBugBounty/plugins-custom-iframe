@@ -274,7 +274,7 @@ class Renderer {
 						'rules'    => $border_rules,
 					);
 				}
-			}else{
+			} else {
 				$styles_config[] = array(
 					'selector' => "#$iframe_id iframe",
 					'rules'    => array(
