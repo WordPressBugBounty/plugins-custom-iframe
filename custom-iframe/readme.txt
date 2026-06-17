@@ -1,6 +1,6 @@
 === Custom iFrame – Embed PDFs, Videos, and External Content in WordPress (Elementor & Gutenberg) ===
 Contributors: coderzstudio
-Tags: embed pdf, iframe, elementor, gutenberg, embed youtube, 3d flip book
+Tags: embed pdf, iframe, elementor, 3d flip book , embed youtube
 Requires at least: 5.8
 Tested up to: 6.9
 Stable tag: 2.0.3
@@ -8,7 +8,7 @@ Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
-Easily embed secure, SEO-friendly, and responsive iFrames in WordPress using Elementor or Gutenberg with lazy loading, auto-height adjustment, and dynamic URL support.
+Embed secure, responsive iFrames in WordPress with Elementor or Gutenberg. Supports lazy loading, auto-height, and dynamic URLs. No coding required.
 
 == Description ==
 
@@ -78,10 +78,24 @@ https://www.youtube.com/watch?v=EB6MgWB6zLA
 4. Preview and publish your content.
 
 For detailed step-by-step tutorials, check out:
-📌 **[How to Set Up Custom Iframe in Elementor](https://coderzstudio.com/docs/how-to-set-up-custom-iframe-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
-📌 **[How to Embed Google Maps in Elementor](https://coderzstudio.com/docs/embed-google-maps-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
-📌 **[How to Embed YouTube Videos in Elementor](https://coderzstudio.com/docs/embed-youtube-video-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
-📌 **[How to Embed X (formerly Twitter) post in Elementor](https://coderzstudio.com/docs/embed-x-post-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+
+**Embed Anything in Elementor:**
+- **[Embed Anything in Elementor](https://docs.customiframe.com/elementor/embed-anything)**
+- **[Embed Videos in Elementor](https://docs.customiframe.com/elementor/embed-videos)**
+- **[Embed Audio in Elementor](https://docs.customiframe.com/elementor/embed-audio)**
+- **[Embed Documents in Elementor](https://docs.customiframe.com/elementor/embed-documents)**
+- **[Embed Google Services in Elementor](https://docs.customiframe.com/elementor/embed-google-services)**
+- **[Embed Social Media in Elementor](https://docs.customiframe.com/elementor/embed-social-media)**
+- **[Embed Forms in Elementor](https://docs.customiframe.com/elementor/embed-forms)**
+
+**Embed Anything in Gutenberg:**
+- **[Embed Anything in Gutenberg](https://docs.customiframe.com/gutenberg/embed-anything)**
+- **[Embed Videos in Gutenberg](https://docs.customiframe.com/gutenberg/embed-videos)**
+- **[Embed Audio in Gutenberg](https://docs.customiframe.com/gutenberg/embed-audio)**
+- **[Embed Documents in Gutenberg](https://docs.customiframe.com/gutenberg/embed-documents)**
+- **[Embed Google Services in Gutenberg](https://docs.customiframe.com/gutenberg/embed-google-services)**
+- **[Embed Social Media in Gutenberg](https://docs.customiframe.com/gutenberg/embed-social-media)**
+- **[Embed Forms in Gutenberg](https://docs.customiframe.com/gutenberg/embed-forms)**
 
 == Screenshots ==
 
@@ -95,19 +109,19 @@ For detailed step-by-step tutorials, check out:
 
 **Q: How do I embed YouTube videos in Elementor?**
 A: You can embed YouTube videos using the Custom iFrame widget by Simply enter the video URL in widget.
-👉 **[Step-by-Step Guide: Embed YouTube videos in Elementor](https://coderzstudio.com/docs/embed-youtube-video-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+👉 **[Step-by-Step Guide: Embed YouTube videos in Elementor](https://docs.customiframe.com/elementor/embed-videos)**
 
 **Q: How do I embed Google Maps in Elementor?**
 A: You can easily add interactive Google Maps with custom styles using the Custom iFrame widget.
-👉 **[Step-by-Step Guide: Embed Google Maps in Elementor](https://coderzstudio.com/docs/embed-google-maps-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+👉 **[Step-by-Step Guide: Embed Google Maps in Elementor](https://docs.customiframe.com/elementor/embed-google-services)**
 
 **Q: How do I embed X ( formerly Twitter ) in Elementor?**
 A: You can embed X ( formerly Twitter ) using the Custom iFrame widget by Simply enter the post URL in widget.
-👉 **[Step-by-Step Guide: Embed X post in Elementor](https://coderzstudio.com/docs/embed-x-post-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+👉 **[Step-by-Step Guide: Embed X post in Elementor](https://docs.customiframe.com/elementor/embed-social-media)**
 
 **Q: How do I add an external website inside Elementor?**
 A: Simply paste the external URL into the Custom iFrame widget, and adjust the settings for height, scrolling, and styles.
-👉 **[Step-by-Step Guide: How to add an external website in Elementor](https://coderzstudio.com/docs/embed-another-website-in-elementor/?utm_source=wordpress&utm_medium=readme&utm_campaign=custom_iframe&utm_id=wp_01)**
+👉 **[Step-by-Step Guide: How to add an external website in Elementor](https://docs.customiframe.com/elementor/embed-anything)**
 
 **Q: Do I need coding skills to use this plugin?**
 A: No! It's designed for beginners with an easy drag-and-drop interface.
